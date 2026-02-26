@@ -472,7 +472,7 @@ ul {
 }
 
 .hero__logo-text {
-  font-family: 'Pacifico', cursive;
+  font-family: 'Courgette', cursive;
   font-size: clamp(5rem, 14vw, 10rem);
   color: var(--white);
   line-height: 1;
