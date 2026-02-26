@@ -1111,7 +1111,7 @@ ul {
 }
 
 .about__deco-circle {
-  position: absolute;
+  display: none;
   width: 55%;
   height: 55%;
   background: var(--pink-light);
