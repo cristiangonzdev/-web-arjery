@@ -164,7 +164,8 @@ const GALLERY_IMAGES = [
    ============================================= */
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-        const target = document.querySelector(this.getAttribute("href"));
+        const targetSelector = this.getAttribute("href");
+        const target = document.querySelector(targetSelector);
         if (!target) return;
         e.preventDefault();
         const navMenu = document.getElementById("navMenu");
@@ -174,8 +175,19 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
             hamburger.classList.remove("active");
             hamburger.setAttribute("aria-expanded", "false");
         }
-        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10) || 80;
-        window.scrollTo({ top: target.offsetTop - navHeight - 16, behavior: "smooth" });
+        // Delay scroll to let menu close and layout settle
+        setTimeout(() => {
+            const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10) || 80;
+            const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+            window.scrollTo({ top: y, behavior: "smooth" });
+            // Correction pass: re-check position after images may have loaded
+            setTimeout(() => {
+                const y2 = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+                if (Math.abs(y2 - window.pageYOffset) > 30) {
+                    window.scrollTo({ top: y2, behavior: "smooth" });
+                }
+            }, 600);
+        }, 350);
     });
 });
 
