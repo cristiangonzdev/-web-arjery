@@ -269,6 +269,13 @@ ul {
   flex-direction: column;
   line-height: 1;
   flex-shrink: 0;
+  background: var(--pink-deep);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.navbar.scrolled .navbar__logo {
+  background: var(--white);
 }
 
 .navbar__logo-img {
@@ -277,10 +284,7 @@ ul {
   object-fit: contain;
   mix-blend-mode: multiply;
   border-radius: 6px;
-}
-
-.navbar.scrolled .navbar__logo-img {
-  mix-blend-mode: multiply;
+  display: block;
 }
 
 .logo-sub {
