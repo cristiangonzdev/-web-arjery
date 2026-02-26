@@ -162,6 +162,24 @@ const GALLERY_IMAGES = [
 /* =============================================
    SMOOTH SCROLL + CIERRE MENÚ MÓVIL
    ============================================= */
+function smoothScrollTo(targetY, duration) {
+    const startY = window.pageYOffset;
+    const diff = targetY - startY;
+    if (Math.abs(diff) < 2) return;
+    let startTime = null;
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+        if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
         const targetSelector = this.getAttribute("href");
@@ -179,14 +197,14 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         setTimeout(() => {
             const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10) || 80;
             const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
-            window.scrollTo({ top: y, behavior: "smooth" });
+            smoothScrollTo(y, 900);
             // Correction pass: re-check position after images may have loaded
             setTimeout(() => {
                 const y2 = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
                 if (Math.abs(y2 - window.pageYOffset) > 30) {
-                    window.scrollTo({ top: y2, behavior: "smooth" });
+                    smoothScrollTo(y2, 600);
                 }
-            }, 600);
+            }, 1000);
         }, 350);
     });
 });
