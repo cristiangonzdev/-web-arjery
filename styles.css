@@ -271,6 +271,18 @@ ul {
   flex-shrink: 0;
 }
 
+.navbar__logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  border-radius: 6px;
+}
+
+.navbar.scrolled .navbar__logo-img {
+  mix-blend-mode: multiply;
+}
+
 .logo-sub {
   font-size: 0.65rem;
   letter-spacing: 0.12em;
@@ -1366,6 +1378,14 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.footer__logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  border-radius: 6px;
 }
 
 .footer__logo-script {
