@@ -174,8 +174,8 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
             hamburger.classList.remove("active");
             hamburger.setAttribute("aria-expanded", "false");
         }
-        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10);
-        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - navHeight - 12, behavior: "smooth" });
+        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10) || 80;
+        window.scrollTo({ top: target.offsetTop - navHeight - 16, behavior: "smooth" });
     });
 });
 
