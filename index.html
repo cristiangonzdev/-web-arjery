@@ -5,14 +5,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Pastelería Arjery — Dulces y tartas artesanales bajo encargo en Lanzarote, Islas Canarias. Tartas personalizadas, cinnamon rolls, cookies, productos para fechas especiales y eventos." />
+    content="Pastelería Arjery — Dulces y tartas artesanales bajo encargo en Lanzarote, Islas Canarias. Tartas personalizadas, cinnamon rolls, cookies, products para fechas especiales y eventos." />
   <meta name="keywords"
-    content="pastelería, tartas artesanales, encargo, Lanzarote, Canarias, cinnamon rolls, cookies, boda, comunión, eventos" />
+    content="pastelería Lanzarote, tartas artesanales Lanzarote, pastelería Arrecife, cinnamon rolls Lanzarote, tartas por encargo Lanzarote, obrador artesanal Canarias, cookies rellenas, dulces artesanales, roscón de reyes, tarta de boda Lanzarote" />
   <meta name="author" content="Pastelería Arjery" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://pasteleriaarjery.com/" />
   <meta property="og:title" content="Pastelería Arjery — Dulces Artesanales en Lanzarote" />
   <meta property="og:description"
     content="Obrador artesanal de pastelería en Lanzarote. Tartas personalizadas, dulces y productos bajo encargo para cafeterías, particulares y eventos." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pasteleriaarjery.com/" />
+  <meta property="og:image" content="https://pasteleriaarjery.com/images/surtidos.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pastelería Arjery — Dulces y Tartas Artesanales | Lanzarote" />
+  <meta name="twitter:description" content="Obrador artesanal en Lanzarote. Tartas, dulces y surtidos bajo encargo." />
+  <meta name="twitter:image" content="https://pasteleriaarjery.com/images/surtidos.jpeg" />
   <title>Pastelería Arjery — Dulces y Tartas Artesanales | Lanzarote</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -217,7 +225,7 @@
           </div>
           <div class="product-card reveal">
             <div class="product-card__img-wrap">
-              <img src="images/hallowen.webp" alt="Dulces Halloween Pastelería Arjery" loading="lazy" />
+              <img src="images/halloween.jpeg" alt="Dulces Halloween Pastelería Arjery" loading="lazy" />
               <div class="product-card__badge badge--dates">Halloween</div>
             </div>
             <div class="product-card__body">
@@ -351,73 +359,7 @@
         <h2 class="section-title">¿Quieres hacer un encargo?</h2>
         <p class="section-subtitle">Cuéntanos qué necesitas y nos ponemos en contacto contigo lo antes posible.</p>
       </div>
-      <div class="contact__inner">
-        <div class="contact__form-wrap reveal">
-          <form id="contactForm" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="nombre">Nombre *</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
-              </div>
-              <div class="form-group">
-                <label for="telefono">Teléfono *</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" placeholder="tu@email.com" required />
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="tipo">Tipo de producto *</label>
-                <select id="tipo" name="tipo" required>
-                  <option value="" disabled selected>Selecciona una categoría</option>
-                  <optgroup label="Productos habituales">
-                    <option value="surtidos">Surtidos variados</option>
-                    <option value="brownie">Brownie</option>
-                    <option value="barquillos">Barquillos de batata</option>
-                  </optgroup>
-                  <optgroup label="Productos especiales">
-                    <option value="cinnamon-rolls">Cinnamon Rolls</option>
-                    <option value="new-york-rolls">New York Rolls</option>
-                    <option value="cookies">Cookies rellenas</option>
-                  </optgroup>
-                  <optgroup label="Fechas especiales">
-                    <option value="tarta-personalizada">Tarta personalizada</option>
-                    <option value="roscon">Roscón de Reyes</option>
-                    <option value="san-valentin">San Valentín</option>
-                    <option value="dia-madre-padre">Día de la Madre / Padre</option>
-                    <option value="dia-canarias">Día de Canarias</option>
-                    <option value="halloween">Halloween</option>
-                    <option value="navidad">Galletas de Navidad</option>
-                  </optgroup>
-                  <option value="otro">Otro / No sé todavía</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="fecha">Fecha del encargo</label>
-                <input type="date" id="fecha" name="fecha" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="mensaje">Mensaje / detalles</label>
-              <textarea id="mensaje" name="mensaje"
-                placeholder="Cuéntanos todos los detalles: número de personas, sabores, diseño, alergias, etc."
-                rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn btn--primary btn--full" id="submitBtn">
-              <i class="fas fa-paper-plane"></i> Enviar encargo
-            </button>
-            <p class="form-privacy">Al enviar aceptas nuestra <a href="#" class="link-accent">política de
-                privacidad</a>.</p>
-          </form>
-          <div class="form-success" id="formSuccess" hidden>
-            <i class="fas fa-circle-check"></i>
-            <h3>¡Encargo recibido!</h3>
-            <p>Gracias, nos pondremos en contacto contigo a la mayor brevedad posible.</p>
-          </div>
-        </div>
+      <div class="contact__inner contact__inner--single">
         <div class="contact__info reveal">
           <h3>Información de contacto</h3>
           <div class="contact-info-item">
@@ -491,6 +433,7 @@
     <i class="fab fa-whatsapp"></i>
     <span class="whatsapp-btn__tooltip">¡Escríbenos!</span>
   </a>
+
 
   <script src="script.js"></script>
 </body>

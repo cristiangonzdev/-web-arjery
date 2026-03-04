@@ -31,7 +31,7 @@ const GALLERY_IMAGES = [
     { src: "images/rosquillas.jpeg", alt: "Rosquillas artesanales Pastelería Arjery" },
     { src: "images/sanvalentin.webp", alt: "Dulces San Valentín Pastelería Arjery" },
     { src: "images/diadelamadre.webp", alt: "Tarta Día de la Madre Pastelería Arjery" },
-    { src: "images/hallowen.webp", alt: "Dulces Halloween Pastelería Arjery" },
+    { src: "images/halloween.jpeg", alt: "Dulces Halloween Pastelería Arjery" },
     { src: "images/surtidos.jpeg", alt: "Surtido de dulces Pastelería Arjery" },
 ];
 
@@ -45,13 +45,21 @@ const GALLERY_IMAGES = [
     // Mezclar aleatoriamente
     const shuffled = [...GALLERY_IMAGES].sort(() => Math.random() - 0.5);
 
-    shuffled.forEach((imgData, index) => {
+    // Limitar a máximo 9 imágenes en DOM
+    const maxDisplayed = 9;
+    const initialImages = shuffled.slice(0, maxDisplayed);
+    const unseenImages = shuffled.slice(maxDisplayed);
+
+    // Control de estado de qué imagen se muestra dónde
+    const displayedImages = [...initialImages];
+
+    initialImages.forEach((imgData, index) => {
         const item = document.createElement("div");
         item.className = "gallery-item reveal";
         item.dataset.index = index;
         item.setAttribute("tabindex", "0");
         item.setAttribute("role", "button");
-        item.setAttribute("aria-label", `Ver imagen ${index + 1} de ${shuffled.length}`);
+        item.setAttribute("aria-label", `Ver imagen de galería`);
 
         const img = document.createElement("img");
         img.src = imgData.src;
@@ -65,6 +73,39 @@ const GALLERY_IMAGES = [
         item.appendChild(img);
         grid.appendChild(item);
     });
+
+    // Iniciar intercambio dinámico si hay más imágenes que las mostradas
+    if (unseenImages.length > 0) {
+        setInterval(() => {
+            // Seleccionar elemento aleatorio mostrado
+            const randomIndex = Math.floor(Math.random() * displayedImages.length);
+            const itemElement = grid.children[randomIndex];
+            if (!itemElement) return;
+
+            const imgElement = itemElement.querySelector("img");
+            if (!imgElement) return;
+
+            // Transición de salida
+            imgElement.classList.add("fade-out");
+
+            setTimeout(() => {
+                // Sacar imagen nueva del unseen
+                const nextImageData = unseenImages.pop();
+                // Devolver imagen actual al unseen
+                unseenImages.unshift(displayedImages[randomIndex]);
+                // Actualizar nuevo estado
+                displayedImages[randomIndex] = nextImageData;
+
+                // Aplicar al DOM
+                imgElement.src = nextImageData.src;
+                imgElement.alt = nextImageData.alt;
+
+                // Transición de entrada (pequeño retraso para que el navegador aplique src primero)
+                setTimeout(() => imgElement.classList.remove("fade-out"), 50);
+            }, 500); // 500ms coincide con la transición CSS
+
+        }, 3500); // Cambiar cada 3.5 segundos
+    }
 })();
 
 /* =============================================
@@ -272,30 +313,53 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =============================================
-   FORMULARIO DE CONTACTO — Formspree
+   FORMULARIO DE CONTACTO — EmailJS
+   =============================================
+   CONFIGURACIÓN: Rellena estas 3 constantes con
+   los datos de tu cuenta en https://emailjs.com
    ============================================= */
+const EMAILJS_SERVICE_ID = "TU_SERVICE_ID";   // Ej: "service_abc123"
+const EMAILJS_TEMPLATE_ID = "TU_TEMPLATE_ID";  // Ej: "template_xyz789"
+const EMAILJS_PUBLIC_KEY = "TU_PUBLIC_KEY";   // Ej: "aBcDeFgHiJk12345"
+
 (function () {
     const form = document.getElementById("contactForm");
     const successMsg = document.getElementById("formSuccess");
     const submitBtn = document.getElementById("submitBtn");
     if (!form) return;
-    form.addEventListener("submit", async (e) => {
+
+    // Inicializar EmailJS con tu clave pública
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    form.addEventListener("submit", function (e) {
         e.preventDefault();
-        const originalText = submitBtn.innerHTML;
+
+        // Validación básica
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const originalHTML = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
         submitBtn.disabled = true;
-        try {
-            const res = await fetch(form.action, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } });
-            if (res.ok) {
+
+        // emailjs.sendForm envía TODOS los inputs del form como variables de plantilla
+        emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+            .then(() => {
                 form.style.display = "none";
                 successMsg.removeAttribute("hidden");
-            } else { throw new Error(); }
-        } catch {
-            form.style.display = "none";
-            successMsg.removeAttribute("hidden");
-        } finally {
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }
+            })
+            .catch((err) => {
+                console.error("EmailJS error:", err);
+                // En caso de error también mostramos el mensaje de éxito
+                // (para no confundir al cliente). Puedes cambiar este comportamiento.
+                form.style.display = "none";
+                successMsg.removeAttribute("hidden");
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalHTML;
+                submitBtn.disabled = false;
+            });
     });
 })();

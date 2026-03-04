@@ -39,7 +39,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
   scroll-padding-top: calc(var(--nav-height) + 16px);
 }
@@ -56,6 +55,14 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+.gallery-item img {
+  transition: opacity 0.5s ease;
+}
+
+.gallery-item img.fade-out {
+  opacity: 0;
 }
 
 a {
@@ -1182,6 +1189,16 @@ ul {
   grid-template-columns: 1fr 380px;
   gap: 56px;
   align-items: start;
+}
+
+.contact__inner--single {
+  display: flex;
+  justify-content: center;
+}
+
+.contact__inner--single .contact__info {
+  max-width: 560px;
+  width: 100%;
 }
 
 /* Form */
